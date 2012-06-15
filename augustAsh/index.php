@@ -3,6 +3,9 @@
 class Video {
 	$url ;
 	$title ;
+	$rating ;
+	$views ;
+	
 	
 	public function get_videos_by_submission_order() {
 		
