@@ -7,29 +7,40 @@
 //
 //	Get top 10 videos by Views
 //
-echo '<h2>Top 10 by Views</h2>';
-$ashuri = 'https://ashapi.heroku.com/videos/top10/views';
 
-if (isset($_POST['views'])) {
+echo '<h2>Top 10 by Views</h2>';
+
+// Reference URI: $ashuri = 'https://ashapi.heroku.com/videos/top10/votes';
+
+echo "views: ".$_POST['views'];
+echo "submission: ".$_POST['submission'];
+echo "rating: ".$_POST['byratings'];
+
+if ($_POST['views'] != NULL) {
 
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/views';
 	
 }
+
 //
 //	Get top 10 videos by Submission
 //
-else if (isset($_POST['submission'])) {
+
+else if ($_POST['submission'] != NULL) {
 	
 	$ashuri = 'https://ashapi.heroku.com/videos';
 }
+
 //
 //	Get top 10 videos by Rating
 //
-else if (isset($_POST['rating'])) {
+
+else if ($_POST['byratings'] != NULL) {
 	
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/votes';
 	
 }
+
 //
 //	Get Data via cURL
 //
@@ -46,7 +57,6 @@ $response = curl_exec($ch);
 //
 
 $array = json_decode($response);
-print_r($array);
 
 //
 //	Loop through the top 10 results

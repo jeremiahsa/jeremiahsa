@@ -53,11 +53,19 @@
 </div>
 <div id="top-10">
 	<h2>View Top 10 Viral Videos</h2>
-	<form id="top10" action="" method="GET" >
+	<form id="top10ratings" action="top-10.php" method="POST" >
+		<input type="hidden" value="byratings" name="byratings" >
 		<input type="submit" value="By Rating" id="by-rating" />
+	</form>
+	<form id="top10views" action="top-10.php" method="POST" >
+		<input type="hidden" value="views" name="views">
 		<input type="submit" value="By Views" id="by-views" />
+	</form>
+	<form id="top10submissions" action="top-10.php" method="POST" >
+		<input type="hidden" value="submission" name="submission">
 		<input type="submit" value="By Submission" id="by-submission" />
 	</form>
+	
 	<div id="rating">
 		<h3>By Rating</h3>
 	</div>
