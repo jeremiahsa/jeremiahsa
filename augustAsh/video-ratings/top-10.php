@@ -8,16 +8,9 @@
 //	Get top 10 videos by Views
 //
 
-echo '<h2>Top 10 by Views</h2>';
-
-// Reference URI: $ashuri = 'https://ashapi.heroku.com/videos/top10/votes';
-
-echo "views: ".$_POST['views'];
-echo "submission: ".$_POST['submission'];
-echo "rating: ".$_POST['byratings'];
 
 if ($_POST['views'] != NULL) {
-
+	echo '<h2>Top 10 by Views</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/views';
 	
 }
@@ -27,7 +20,7 @@ if ($_POST['views'] != NULL) {
 //
 
 else if ($_POST['submission'] != NULL) {
-	
+	echo '<h2>Top 10 by Submission</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos';
 }
 
@@ -36,7 +29,7 @@ else if ($_POST['submission'] != NULL) {
 //
 
 else if ($_POST['byratings'] != NULL) {
-	
+	echo '<h2>Top 10 by Ratings</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/votes';
 	
 }
