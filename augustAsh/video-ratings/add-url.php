@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <?php
 
 //
@@ -17,23 +16,6 @@ if (isset($_POST['title'])) {
 	$slug = $_POST['slug'];
 
 //
-// Convert form data into JSON format for submission to RESTful API
-//	
-
-//$array = array("title" => $title, "url" => $url);
-//echo	$json_string = json_encode($array);
-//echo "<br>";
-	
-/*echo $json_string = '{ 
-		\'title\' : \''.$title.'\', 
-		\'url\' : \''.$url.'\', 
-		\'slug\' : \''.$slug.'\' 
-		}';
-*/
-
-echo $json_string = 'title='.$title.'&url='.$url;
-
-//
 // Submit JSON data to API
 //
 
@@ -43,19 +25,26 @@ $ch = curl_init($ashuri);
 curl_setopt($ch, CURLOPT_USERPWD, "jsandahl:d598d6e400fb796ab23e39288bfd63d0");
 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, POST);
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-curl_setopt($ch, CURLOPT_HEADER, true);
+curl_setopt($ch, CURLOPT_HEADER, false);
 curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, "title=$title&url=$url");
 $response = curl_exec($ch);
+
+if ($response >= 1) {
+	echo "Thank you for submitting a new video.";
+} else if ($response == NULL){
+	echo "This Video has already been submitted.";
+} 
+
 
 if (curl_errno($ch)) {
 	$error = curl_error($ch);
 	echo "<br>errors:" . $error. "<br>";	
 } else {
-	echo "<br>no curl errors<br>";
+
+	echo "<h1>Your Link was Submitted with no errors</h1><br>";
 }
-$status = curl_getinfo($ch);
-echo "<br>status is:" . print_r($status) ."<br>";
 curl_close($ch);
 
 
@@ -68,4 +57,4 @@ curl_close($ch);
 }
 
 ?>
-</HTML>
+</html>
