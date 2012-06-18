@@ -20,29 +20,26 @@
 		width:450px;
 	}
 	
-	div#top-10-by-rating, div#top-10-by-views, div#top-10-by-submission {
+	div#top-10 {
 		position:absolute;
 		left:650px;
 		width:300px;
+		top:10px;
 	}
-	div#top-10-by-rating {
-		top:20px;
-	}
-	div#top-10-by-views {
-		top:200px;
-	}
-	div#top-10-by-submission {
-		top:300px;
+	div#rating, #views, #submission {
+		border:none;
+		padding:none;
 	}
 </style>
 <script type="text/javascript" src="js/jquery.js" ></script>
 <script type="text/javascript" src="js/main.js" ></script>
 
+
 </head>
 
 <body>
 <div id="add-url">
-	<form action="add-url.php" method="POST" id="submitNewVideo" >
+	<form action="add-url.php" method="POST" id="submitNewVideo">
 		<h1>Submit Video URL</h1>
 		Video Title:<input type="text" name="title" id="title" value="Charlie Bit Me"/><br>
 		Video URL:<input type="text" name="url" id="url" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
@@ -54,17 +51,24 @@
 	<h1>Video Player</h1>
 	<!-- Dynamic Content goes here -->
 </div>
+<div id="top-10">
+	<h2>View Top 10 Viral Videos</h2>
+	<form id="top10" action="" method="GET" >
+		<input type="submit" value="By Rating" id="by-rating" />
+		<input type="submit" value="By Views" id="by-views" />
+		<input type="submit" value="By Submission" id="by-submission" />
+	</form>
+	<div id="rating">
+		<h3>By Rating</h3>
+	</div>
+	<div id="views">
+		<h3> By Views </h3>
+	</div>
+	<div id="submission">
+		<h3>By Submission </h3>
+	</div>
+</div>
 
-<div id="top-10-by-rating">
-	<h2>Top 10 Videos by Rating</h2>
-</div>
-<div id="top-10-by-views">
-	<h2>Top 10 Videos by Views </h2>
-</div>
-
-<div id="top-10-by-submission">
-	<h2>Top 10 Videos by Submission</h2>
-</div>
 	
 </body>
 </html>

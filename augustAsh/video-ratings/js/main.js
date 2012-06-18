@@ -1,47 +1,38 @@
 $(document).ready(function() {
-
-	// Gets all the videos from the RESTful API
-	$.getJSON('https://ashapi.heroku.com/videos?jsoncallback=?', function(data) {
-		var id = [];
-		alert (id);
-		$.each(id, function(key, val) {
-			id.push('<li id="' + key + '">' + val + '</li>');
-			
+	
+//
+// 		Show/Hide the top 10 section with the buttons 
+//		Also handles the submission and injection of the top 10 results
+//		Into the appropriate div upon click of the respective button
+//
+	
+	$('#rating').hide();
+	$('#views').hide();
+	$('#submission').hide();
+	
+	$('#by-rating').click(function() {
+		$('#views').hide();
+		$('#submission').hide();
+		$.post('top-10.php', function(data) {
+			window.location = 'top-10.php';
+			$('#rating').fadeIn(data);
 		});
-		
-		$('<ul/>', {
-		    'class': 'my-new-list',
-		    html: id.join('')
-		  }).appendTo('#top-10-by-rating');
+		return false;
 	});
-	// GETS the first video from the RESTFUL API by ID
-	$.getJSON('https://ashapi.heroku.com/videos/:id/?jsoncallback=?', function(data) {
-		var data = [];
-		alert (data);
+	
+	$('#by-views').click(function() {
+		$('#views').fadeIn();	
+		$('#rating').hide();
+		$('#submission').hide();
+		return false;
 	});
-
-
-});
-
-
-$('#submit').click(function() {
-	alert ('you clicked submit');
-	var formdata = $('form').serialize();	
-	alert (formdata);
-	$.ajax ({
-		type: 'PUT',
-		url: "https://ashapi.heroku.com/videos/:id",
-		data:  formdata ,
-		success:function(formdata) {
-			alert('submitted');
-		},
-		error:function() {
-			alert('an error occurred');
-		}
+	
+	$('#by-submission').click(function() {
+		$('#rating').hide();
+		$('#views').hide();
+		$('#submission').fadeIn();	
+		return false;
 	});
-
-
-
 
 
 });
