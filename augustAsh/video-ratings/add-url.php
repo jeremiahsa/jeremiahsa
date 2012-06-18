@@ -31,12 +31,19 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_POSTFIELDS, "title=$title&url=$url");
 $response = curl_exec($ch);
 
+//
+// Handle errors, in case user submits same link/title pair twice.
+//
+
 if ($response >= 1) {
 	echo "Thank you for submitting a new video.";
 } else if ($response == NULL){
 	echo "This Video has already been submitted.";
 } 
 
+//
+// Handle cURL errors
+//
 
 if (curl_errno($ch)) {
 	$error = curl_error($ch);
@@ -47,10 +54,11 @@ if (curl_errno($ch)) {
 }
 curl_close($ch);
 
-
-
-
 } else {
+
+//
+// In case page is visited without a POST submission
+//
 	
 	echo "Please enter a title for your video!";
 	
