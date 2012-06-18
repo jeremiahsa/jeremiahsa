@@ -46,6 +46,7 @@ $response = curl_exec($ch);
 //
 
 $array = json_decode($response);
+print_r($array);
 
 //
 //	Loop through the top 10 results
@@ -53,8 +54,11 @@ $array = json_decode($response);
 
 for ($i=1; $i<=10; $i++) {
 	echo  	"<h3>". $array[$i]->title . "</h3>".
-	 		"<a href=\"".$array[$i]->url."\">" . $array[$i]->url . "</a><br>" .
-			$array[$i]->slug . "<br>";
+	 		"<a href=\"".$array[$i]->url."\">" . 
+			$array[$i]->url . "</a><br>" .
+			$array[$i]->slug .
+			": (".$array[$i]->vote_tally . ") votes" .
+			" / (".$array[$i]->view_count . ") views";
 }
 
 ?>
