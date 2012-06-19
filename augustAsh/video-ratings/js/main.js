@@ -1,17 +1,6 @@
-$(function() {
-    $("a").click(function() {
-        return someMethodName($(this).attr('href'));
-    });
-
-	function someMethodName(href)
-	{	
-		$("#embedurl").attr('src', $(this).attr('href'));
-	    console.log(href);
-	    return false;
-	}
-});
-
 $(document).ready(function() {
+
+	$("ol").ytplaylist();
 	
 //
 // 		Show/Hide the top 10 section with the buttons 

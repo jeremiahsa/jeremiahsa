@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <head>
 <script type="text/javascript" src="js/jquery.js" ></script>
+<script type="text/javascript" src="js/jquery.youtubeplaylist.js" ></script>
 <script type="text/javascript">
+
+	$("ol li").ytplaylist();
+
+
 $(function() {
     $("a").click(function() {
         return someMethodName($(this).attr('href'));
@@ -67,16 +72,25 @@ $array = json_decode($response);
 //
 //	Loop through the top 10 results
 //
-
+echo "<ol>";
 for ($i=1; $i<=10; $i++) {
-	echo  	"<h3>". $array[$i]->title . "</h3>".
+	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
 			"<a class=\"toembed\" href=\"".$array[$i]->url."\">" . 
 			$array[$i]->url . "</a><br>" .
 			$array[$i]->slug .
 			": (".$array[$i]->vote_tally . ") votes" .
-			" / (".$array[$i]->view_count . ") views";
+			" / (".$array[$i]->view_count . ") views</li>";
 }
+
+function voteUp() {
+	
+}
+
+function voteDown() {
+	
+}
+
 
 ?>
 </html>
