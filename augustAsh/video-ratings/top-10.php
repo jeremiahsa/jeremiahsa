@@ -1,26 +1,8 @@
 <!DOCTYPE html>
 <head>
-<script type="text/javascript" src="js/jquery.js" ></script>
-<script type="text/javascript" src="js/jquery.youtubeplaylist.js" ></script>
-<script type="text/javascript">
-
-	$("ol li").ytplaylist();
-
-
-$(function() {
-    $("a").click(function() {
-        return someMethodName($(this).attr('href'));
-    });
-
-	function someMethodName(href)
-	{	
-		$("#embedurl").attr('src', $(this).attr('href'));
-	    console.log(href);
-	    return false;
-	}
-});
-</script>
+<title>The top 10 videos</title>
 </head>
+<body>
 <?php
 	
 //
@@ -74,13 +56,21 @@ $array = json_decode($response);
 //
 echo "<ol>";
 for ($i=1; $i<=10; $i++) {
+	$urlForEmbed = addEmbed($array[$i]->url);
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<a class=\"toembed\" href=\"".$array[$i]->url."\">" . 
-			$array[$i]->url . "</a><br>" .
+			"<embed width=\"250\" height=\"120\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\">" . 
+			$array[$i]->url . "</embed>" .
 			$array[$i]->slug .
-			": (".$array[$i]->vote_tally . ") votes" .
+			": (".$array[$i]->id . ") id" .
+			" / (".$array[$i]->vote_tally . ") votes" .
 			" / (".$array[$i]->view_count . ") views</li>";
+}
+
+function addEmbed($url) {
+	$embedString = str_replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/v/", $url);
+	
+	return $embedString;
 }
 
 function voteUp() {
@@ -93,6 +83,7 @@ function voteDown() {
 
 
 ?>
+</body>
 </html>
 
 
