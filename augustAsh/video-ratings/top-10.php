@@ -59,7 +59,7 @@ for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<embed width=\"250\" height=\"120\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\">" . 
+			"<embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\">" . 
 			$array[$i]->url . "</embed>" .
 			$array[$i]->slug .
 			": (".$array[$i]->id . ") id" .
@@ -67,9 +67,13 @@ for ($i=1; $i<=10; $i++) {
 			" / (".$array[$i]->view_count . ") views</li>";
 }
 
+//
+//	This function retunrs an embed-friendly URL
+//
+
 function addEmbed($url) {
-	$embedString = str_replace("http://www.youtube.com/watch?v=", "http://www.youtube.com/v/", $url);
-	
+	$strToKeep = substr($url, -11);
+	$embedString = "http://www.youtube.com/v/". $strToKeep;
 	return $embedString;
 }
 
