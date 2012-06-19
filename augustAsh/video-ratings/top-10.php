@@ -60,8 +60,7 @@ for ($i=1; $i<=10; $i++) {
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
 			"<embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\">" . 
-			$array[$i]->url . "</embed>" .
-			$array[$i]->slug .
+			$array[$i]->slug . "</embed>" .
 			": (".$array[$i]->id . ") id" .
 			" / (".$array[$i]->vote_tally . ") votes" .
 			" / (".$array[$i]->view_count . ") views</li>";
@@ -76,15 +75,6 @@ function addEmbed($url) {
 	$embedString = "http://www.youtube.com/v/". $strToKeep;
 	return $embedString;
 }
-
-function voteUp() {
-	
-}
-
-function voteDown() {
-	
-}
-
 
 ?>
 </body>
