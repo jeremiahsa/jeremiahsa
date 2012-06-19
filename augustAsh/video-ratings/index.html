@@ -9,22 +9,21 @@
 	}
 	div#video-player {
 		position:absolute;
-	
 		left:150px;
 		width:450px;
 	}
 	div#add-url {
 		position:absolute;
-		left:150px;
-		top:200px;
-		width:450px;
+		left:650px;
+		top:10px;
+		width:300px;
 	}
 	
 	div#top-10 {
 		position:absolute;
 		left:650px;
 		width:300px;
-		top:10px;
+		top:200px;
 	}
 	div#rating, #views, #submission {
 		border:none;
@@ -34,7 +33,6 @@
 <script type="text/javascript" src="js/jquery.js" ></script>
 <script type="text/javascript" src="js/main.js" ></script>
 
-
 </head>
 
 <body>
@@ -42,13 +40,18 @@
 	<form action="add-url.php" method="POST" id="submitNewVideo">
 		<h1>Submit Video URL</h1>
 		Video Title:<input type="text" name="title" id="title" value="Charlie Bit Me"/><br>
-		Video URL:<input type="text" name="url" id="url" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
+		Video URL:<input type="text" name="url" id="embedurl" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
 		<input type="submit" value="submit" id="submit"/>
 	</form>
 	
 </div>
 <div id="video-player">
 	<h1>Video Player</h1>
+	<embed
+	width="420" height="345" id="embed"
+	src="http://www.youtube.com/v/XGSy3_Czz8k"
+	type="application/x-shockwave-flash">
+	</embed>
 	<!-- Dynamic Content goes here -->
 </div>
 <div id="top-10">
