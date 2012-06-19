@@ -2,6 +2,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
 <style type="text/css">
+
+ 	#top10ratings, #top10views, #top10submissions{
+		margin-top:0px;
+		padding-top: 0px;
+		float:left;
+		margin:none;
+	}
+	h2 {
+		margin-bottom:3px;
+	}
 	div {
 		border:1px solid gray;
 		padding:10px;
@@ -28,6 +38,7 @@
 	div#rating, #views, #submission {
 		border:none;
 		padding:none;
+		margin:none;
 	}
 </style>
 <script type="text/javascript" src="js/jquery.js" ></script>
@@ -40,7 +51,7 @@
 	<form action="add-url.php" method="POST" id="submitNewVideo">
 		<h1>Submit Video URL</h1>
 		Video Title:<input type="text" name="title" id="title" value="Charlie Bit Me"/><br>
-		Video URL:<input type="text" name="url" id="embedurl" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
+		Video URL:<input type="text" name="url" id="url" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
 		<input type="submit" value="submit" id="submit"/>
 	</form>
 	
@@ -48,7 +59,7 @@
 <div id="video-player">
 	<h1>Video Player</h1>
 	<embed
-	width="420" height="345" id="embed"
+	width="440" height="345" id="embedurl"
 	src="http://www.youtube.com/v/XGSy3_Czz8k"
 	type="application/x-shockwave-flash">
 	</embed>

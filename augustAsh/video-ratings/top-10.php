@@ -9,7 +9,7 @@ $(function() {
 
 	function someMethodName(href)
 	{	
-		$("#video-player").hide();
+		$("#embedurl").attr('src', $(this).attr('href'));
 	    console.log(href);
 	    return false;
 	}
