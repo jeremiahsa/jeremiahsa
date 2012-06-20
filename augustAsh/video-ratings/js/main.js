@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-	$("ol").ytplaylist();
-	
+
 //
 // 		Show/Hide the top 10 section with the buttons 
 //		

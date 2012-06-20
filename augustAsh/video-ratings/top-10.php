@@ -1,7 +1,21 @@
 <!DOCTYPE html>
 <head>
 <title>The top 10 videos</title>
+<script type="text/javascript" src="js/jquery.js" ></script>
+<script type="text/javascript">
 
+$("#147").click(function() {
+	alert('you clicked an embed');
+});
+
+</script>
+<style type="text/css">
+ol div {
+	border:none;
+	padding:none;
+	margin:none;
+}
+</style>
 </head>
 <body>
 <?php
@@ -61,10 +75,10 @@ for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
-			$array[$i]->slug . "</embed>" .
+			"<div id=\"".$array[$i]->id."\"><embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
+			$array[$i]->slug . "</embed></div>" .
 			": (".$array[$i]->id . ") id" .
-			" / (".$array[$i]->view_count . ") views".
+			" / (".$array[$i]->view_count . ") views<br>".
 			" (".$array[$i]->vote_tally . ") votes" .
 			'<br> 	<form id="vote_up" method="post" action="vote.php" >
 					<button class="vote" name="up" id="up">

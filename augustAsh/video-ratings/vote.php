@@ -29,6 +29,7 @@ function bakeACookie() {
 function checkACookie() {
 	if (isset($_COOKIE['oneDayLimit'])) {
 		echo "You have already voted today. Please come again tomorrow";
+		exit;
 	}
 }
 
@@ -57,7 +58,15 @@ function processForm() {
 function vote($url_id, $opinion) {
 	
 	$ashuri = 'https://ashapi.heroku.com/videos/'.$url_id.'/votes';
-	
+	$ch = curl_init($ashuri);
+	curl_setopt($ch, CURLOPT_USERPWD, "jsandahl:d598d6e400fb796ab23e39288bfd63d0");
+	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, POST);
+	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+	curl_setopt($ch, CURLOPT_HEADER, true);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, "id=$url_id&opinion=$opinion");
+	$response = curl_exec($ch);
 	
 }
 
