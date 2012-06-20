@@ -38,6 +38,24 @@ ol div {
 //
 //	Cache lists for up to 5 minutes to prevent server overload
 //	
+
+function cacheThisList($filename) {
+	if (file_exists($filename)) { 	//check if file exists
+		$cacheTime = 300;
+		if (time() - $cacheTime < filetime($filename)) {	// if file has not expired, serve file from cache
+			include ($filename);
+		} else {	// if cache file is expired, write new cache file
+			writeNewCacheFile();
+		} 
+	}	else {		// if file does not exist, write new cache file
+			writeNewCacheFile();
+	}
+	
+}
+
+function writeNewCacheFile($filename)
+	
+	
 	
 //
 //	Get top 10 videos by Views
