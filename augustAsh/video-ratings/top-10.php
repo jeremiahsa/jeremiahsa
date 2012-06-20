@@ -4,10 +4,13 @@
 <script type="text/javascript" src="js/jquery.js" ></script>
 <script type="text/javascript">
 
-$("#147").click(function() {
-	alert('you clicked an embed');
-});
+// This section dynamically obtains the id number when a video is clicked
 
+$(".viewdiv").click(function() {
+	//get div id == video id
+		alert ($(this).attr("id"));
+	
+})
 </script>
 <style type="text/css">
 ol div {
@@ -75,7 +78,7 @@ for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<div id=\"".$array[$i]->id."\"><embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
+			"<div class=\"viewdiv\" id=\"".$array[$i]->id."\"><embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
 			$array[$i]->slug . "</embed></div>" .
 			": (".$array[$i]->id . ") id" .
 			" / (".$array[$i]->view_count . ") views<br>".
