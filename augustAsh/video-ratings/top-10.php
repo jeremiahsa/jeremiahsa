@@ -39,22 +39,35 @@ ol div {
 //	Cache lists for up to 5 minutes to prevent server overload
 //	
 
-function cacheThisList($filename) {
+function cacheThisList($filename, $content) {
 	if (file_exists($filename)) { 	//check if file exists
 		$cacheTime = 300;
-		if (time() - $cacheTime < filetime($filename)) {	// if file has not expired, serve file from cache
-			include ($filename);
+		if (time() - $cacheTime > filemtime($filename)) {	// if file has not expired, serve file from cache
+			writeFromCache($filename);
 		} else {	// if cache file is expired, write new cache file
-			writeNewCacheFile();
+			echo 'file exists';
+			writeNewCacheFile($filename, $content);
 		} 
 	}	else {		// if file does not exist, write new cache file
-			writeNewCacheFile();
+			echo 'file created';
+			writeNewCacheFile($filename, $content);
 	}
 	
 }
 
-function writeNewCacheFile($filename) {
-	
+function writeNewCacheFile($filename, $content) {
+	echo 'inside writeNewCache File';
+	$fp = fopen($filename, 'w');
+	fwrite($fp, $content);
+	fclose($fp);
+	writeFromCache($filename);
+}
+
+function writeFromCache($filename) {
+	$fh = fopen($filename, 'r');
+	$fileContents = fread($fh, filesize($filename));
+	fclose($fh);
+	echo $fileContents;
 }
 	
 	
@@ -66,6 +79,7 @@ function writeNewCacheFile($filename) {
 if ($_GET['views'] != NULL) {
 	echo '<h2>By Views</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/views';
+	$filename = "cache/views.txt";
 	
 }
 
@@ -76,6 +90,7 @@ if ($_GET['views'] != NULL) {
 else if ($_GET['submission'] != NULL) {
 	echo '<h2>By Submission</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos';
+	$filename = "cache/submission.txt";
 }
 
 //
@@ -85,6 +100,7 @@ else if ($_GET['submission'] != NULL) {
 else if ($_GET['byratings'] != NULL) {
 	echo '<h2>By Ratings</h2>';
 	$ashuri = 'https://ashapi.heroku.com/videos/top10/votes';
+	$filename = "cache/ratings.txt";
 	
 }
 
@@ -110,9 +126,13 @@ $array = json_decode($response);
 //
 
 echo "<ol>";
+
+$content = "";
+
 for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
-	echo  	"<li><h3>". $array[$i]->title . "</h3>".
+	
+	$content .= "<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
 			"<div class=\"viewdiv\" id=\"".$array[$i]->id."\"><embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
 			$array[$i]->slug . "</embed></div>" .
@@ -128,11 +148,16 @@ for ($i=1; $i<=10; $i++) {
 					</button></li>
 					<input type="hidden" value="'.$array[$i]->id.'" name="url_id" />
 					</form>';
+					
 }
+
+cacheThisList($filename, $content);
+
 echo "</ol>";
 //
 //	This function retunrs an embed-friendly URL
 //
+
 
 function addEmbed($url) {
 	$strToKeep = substr($url, -11);
