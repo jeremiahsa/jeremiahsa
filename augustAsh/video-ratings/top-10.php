@@ -45,18 +45,15 @@ function cacheThisList($filename, $content) {
 		if (time() - $cacheTime > filemtime($filename)) {	// if file has not expired, serve file from cache
 			writeFromCache($filename);
 		} else {	// if cache file is expired, write new cache file
-			echo 'file exists';
 			writeNewCacheFile($filename, $content);
 		} 
 	}	else {		// if file does not exist, write new cache file
-			echo 'file created';
 			writeNewCacheFile($filename, $content);
 	}
 	
 }
 
 function writeNewCacheFile($filename, $content) {
-	echo 'inside writeNewCache File';
 	$fp = fopen($filename, 'w');
 	fwrite($fp, $content);
 	fclose($fp);
@@ -66,8 +63,9 @@ function writeNewCacheFile($filename, $content) {
 function writeFromCache($filename) {
 	$fh = fopen($filename, 'r');
 	$fileContents = fread($fh, filesize($filename));
-	fclose($fh);
 	echo $fileContents;
+	fclose($fh);
+	
 }
 	
 	
