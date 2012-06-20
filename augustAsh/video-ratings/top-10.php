@@ -8,7 +8,19 @@
 
 $(".viewdiv").click(function() {
 	//get div id == video id
-		alert ($(this).attr("id"));
+	
+	var video_id = $(this).attr("id");
+
+//		alert (video_id);
+	
+	$.ajax({
+		url:'views.php',
+		method:'POST',
+		data: 'id='+video_id,
+		success: function(data) {
+			alert ("You have viewed the video");
+		}
+	}); // end ajax
 	
 })
 </script>
