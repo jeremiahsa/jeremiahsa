@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 <title>The top 10 videos</title>
+
 </head>
 <body>
 <?php
@@ -54,18 +55,28 @@ $array = json_decode($response);
 //
 //	Loop through the top 10 results
 //
+
 echo "<ol>";
 for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
 	echo  	"<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\">" . 
+			"<embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
 			$array[$i]->slug . "</embed>" .
 			": (".$array[$i]->id . ") id" .
-			" / (".$array[$i]->vote_tally . ") votes" .
-			" / (".$array[$i]->view_count . ") views</li>";
+			" / (".$array[$i]->view_count . ") views".
+			" (".$array[$i]->vote_tally . ") votes" .
+			'<br> 	<form id="vote_up" method="post" action="vote.php" >
+					<button class="vote" name="up" id="up">
+						<img src="img/vote_up.gif" />
+				  	</button> 
+					<button class="vote" name="down" id="down">
+						<img src="img/vote_down.gif"/>
+					</button></li>
+					<input type="hidden" value="'.$array[$i]->id.'" name="url_id" />
+					</form>';
 }
-
+echo "</ol>";
 //
 //	This function retunrs an embed-friendly URL
 //
