@@ -34,6 +34,16 @@ ol div {
 </head>
 <body>
 <?php
+
+//
+//	This function retunrs an embed-friendly URL
+//
+
+function addEmbed($url) {
+	$strToKeep = substr($url, -11);
+	$embedString = "http://www.youtube.com/v/". $strToKeep;
+	return $embedString;
+}
 	
 //
 //	Cache lists for up to 5 minutes to prevent server overload
@@ -44,16 +54,18 @@ function cacheThisList($filename, $content) {
 		$cacheTime = 300;
 		if (time() - $cacheTime > filemtime($filename)) {	// if file has not expired, serve file from cache
 			writeFromCache($filename);
-		} else {	// if cache file is expired, write new cache file
-			writeNewCacheFile($filename, $content);
+		} else {	// if cache file is expired, refresh cache file
+			connect_and_refresh_from_API($ashuri);
 		} 
-	}	else {		// if file does not exist, write new cache file
-			writeNewCacheFile($filename, $content);
+	}	else {		// if file does not exist, refresh cache file
+			connect_and_refresh_from_API($ashuri);
 	}
 	
 }
 
+//
 //	This function is invoked to refresh the cache file if necessary.
+//
 
 function writeNewCacheFile($filename, $content) {
 	$fp = fopen($filename, 'w');
@@ -62,7 +74,9 @@ function writeNewCacheFile($filename, $content) {
 	writeFromCache($filename);
 }
 
+//
 //	This function is invoked to serve the cache file when called.
+//
 
 function writeFromCache($filename) {
 	$fh = fopen($filename, 'r');
@@ -70,8 +84,6 @@ function writeFromCache($filename) {
 	echo $fileContents;
 	fclose($fh);
 }
-	
-	
 	
 //
 //	Get top 10 videos by Views
@@ -106,9 +118,9 @@ else if ($_GET['byratings'] != NULL) {
 }
 
 //
-//	Get Data via cURL
+//	Get fresh Data via cURL from the API
 //
-
+function connect_and_refresh_from_API($ashuri) {
 $ch = curl_init($ashuri);
 curl_setopt($ch, CURLOPT_USERPWD, "jsandahl:d598d6e400fb796ab23e39288bfd63d0");
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -127,7 +139,6 @@ $array = json_decode($response);
 //
 
 echo "<ol>";
-
 $content = "";
 ob_start();
 for ($i=1; $i<=10; $i++) {
@@ -152,19 +163,11 @@ for ($i=1; $i<=10; $i++) {
 					
 }
 ob_end_flush();
+}
+
 cacheThisList($filename, $content);
 
 echo "</ol>";
-//
-//	This function retunrs an embed-friendly URL
-//
-
-
-function addEmbed($url) {
-	$strToKeep = substr($url, -11);
-	$embedString = "http://www.youtube.com/v/". $strToKeep;
-	return $embedString;
-}
 
 ?>
 </body>
