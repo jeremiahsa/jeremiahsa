@@ -3,7 +3,7 @@
 <title>The top 10 videos</title>
 <script type="text/javascript" src="js/jquery.js" ></script>
 <script type="text/javascript">
-
+// Because the data is retrieved with AJAX, it is necessary to have the JS called from this page when dealing with this data.
 // This section dynamically obtains the id number when a video is clicked
 
 $(".viewdiv").click(function() {
@@ -53,6 +53,8 @@ function cacheThisList($filename, $content) {
 	
 }
 
+//	This function is invoked to refresh the cache file if necessary.
+
 function writeNewCacheFile($filename, $content) {
 	$fp = fopen($filename, 'w');
 	fwrite($fp, $content);
@@ -60,12 +62,13 @@ function writeNewCacheFile($filename, $content) {
 	writeFromCache($filename);
 }
 
+//	This function is invoked to serve the cache file when called.
+
 function writeFromCache($filename) {
 	$fh = fopen($filename, 'r');
 	$fileContents = fread($fh, filesize($filename));
 	echo $fileContents;
 	fclose($fh);
-	
 }
 	
 	
