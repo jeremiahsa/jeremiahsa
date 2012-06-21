@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<head>
+<title>Add URL</title>
+</head>
+<body>
 <?php
 
 //
@@ -42,7 +46,7 @@ if ($response >= 1) {
 } 
 
 //
-// Handle cURL errors
+// Handle cURL errors nicely and usefully, though none should arise, since the code is server-side running PHP 5.3
 //
 
 if (curl_errno($ch)) {
@@ -65,4 +69,5 @@ curl_close($ch);
 }
 
 ?>
+</body>
 </html>
