@@ -126,7 +126,7 @@ $array = json_decode($response);
 echo "<ol>";
 
 $content = "";
-
+ob_start();
 for ($i=1; $i<=10; $i++) {
 	$urlForEmbed = addEmbed($array[$i]->url);
 	
@@ -148,7 +148,7 @@ for ($i=1; $i<=10; $i++) {
 					</form>';
 					
 }
-
+ob_end_flush();
 cacheThisList($filename, $content);
 
 echo "</ol>";
