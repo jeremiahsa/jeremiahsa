@@ -49,16 +49,18 @@ function addEmbed($url) {
 //	Cache lists for up to 5 minutes to prevent server overload
 //	
 
-function cacheThisList($filename, $content) {
+function cacheThisList($filename, $content, $ashuri) {
 	if (file_exists($filename)) { 	//check if file exists
 		$cacheTime = 300;
-		if (time() - $cacheTime > filemtime($filename)) {	// if file has not expired, serve file from cache
+		if (time() - $cacheTime < filemtime($filename)) {	// if file has not expired, serve file from cache
 			writeFromCache($filename);
 		} else {	// if cache file is expired, refresh cache file
-			connect_and_refresh_from_API($ashuri);
+			
+			connect_and_refresh_from_API($ashuri, $filename);
+			exit;
 		} 
 	}	else {		// if file does not exist, refresh cache file
-			connect_and_refresh_from_API($ashuri);
+			connect_and_refresh_from_API($ashuri, $filename);
 	}
 	
 }
@@ -120,7 +122,7 @@ else if ($_GET['byratings'] != NULL) {
 //
 //	Get fresh Data via cURL from the API
 //
-function connect_and_refresh_from_API($ashuri) {
+function connect_and_refresh_from_API($ashuri, $filename) {
 $ch = curl_init($ashuri);
 curl_setopt($ch, CURLOPT_USERPWD, "jsandahl:d598d6e400fb796ab23e39288bfd63d0");
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -146,7 +148,7 @@ for ($i=1; $i<=10; $i++) {
 	
 	$content .= "<li><h3>". $array[$i]->title . "</h3>".
 	 		// allow js to govern links 
-			"<div class=\"viewdiv\" id=\"".$array[$i]->id."\"><embed width=\"250\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
+			"<div class=\"viewdiv\" id=\"".$array[$i]->id."\"><embed width=\"400\" height=\"250\" src=\"".$urlForEmbed."\" type=\"application/x-shockwave-flash\"><br>" . 
 			$array[$i]->slug . "</embed></div>" .
 			": (".$array[$i]->id . ") id" .
 			" / (".$array[$i]->view_count . ") views<br>".
@@ -163,9 +165,14 @@ for ($i=1; $i<=10; $i++) {
 					
 }
 ob_end_flush();
+writeNewCacheFile($filename, $content);
 }
 
-cacheThisList($filename, $content);
+//
+//	The function call intiates the whole process after the form has been processed.
+//
+
+cacheThisList($filename, $content, $ashuri);
 
 echo "</ol>";
 

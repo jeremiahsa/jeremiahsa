@@ -12,6 +12,7 @@
 		padding:none;
 		margin:none;
 	}
+	
  	#top10ratings, #top10views, #top10submissions{
 		margin-top:0px;
 		padding-top: 0px;
@@ -26,22 +27,18 @@
 		padding:10px;
 		margin:10px;
 	}
-	div#video-player {
-		position:absolute;
-		left:150px;
-		width:450px;
-	}
+
 	div#add-url {
 		position:absolute;
 		left:150px;
-		top:475px;
-		width:450px;
+		top:10px;
+		width:300px;
 	}
 	
 	div#top-10 {
 		position:absolute;
-		left:650px;
-		width:300px;
+		left:500px;
+		width:500px;
 		top:10px;
 	}
 	div#rating, #views, #submission {
@@ -59,23 +56,13 @@
 <div id="add-url">
 	<form action="add-url.php" method="POST" id="submitNewVideo">
 		<h1>Submit Video URL</h1>
-		Video Title:<input type="text" name="title" id="title" value="Charlie Bit Me"/><br>
-		Video URL:<input type="text" name="url" id="url" value="http://www.youtube.com/watch?v=fPDYj3IMkRI"/><br>
+		Video Title:<input type="text" name="title" id="title" /><br>
+		Video URL:<input type="text" name="url" id="url" /><br>
 		<input type="submit" value="submit" id="submit"/>
 	</form>
 	
 </div>
-<div id="video-player">
-	<h1>Video Player</h1>
-	<embed 
-		width="440" 
-		height="345" 
-		id="embedurl"
-		src="http://www.youtube.com/v/XGSy3_Czz8k"
-		type="application/x-shockwave-flash">
-	</embed>
-	<!-- Dynamic Content goes here -->
-</div>
+
 <div id="top-10">
 	<h2>View Top 10 Viral Videos</h2>
 	<form id="top10ratings" action="top-10.php" method="POST" >
