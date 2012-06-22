@@ -18,7 +18,7 @@ $(".viewdiv").click(function() {
 		method:'POST',
 		data: 'id='+video_id,
 		success: function(data) {
-			alert ("You have viewed the video");
+			// views successfully posted to server
 		}
 	}); // end ajax
 	
